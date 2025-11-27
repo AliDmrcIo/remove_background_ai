@@ -4,6 +4,8 @@ import time
 import extra_streamlit_components as stx 
 
 def history_page():
+    API_URL = st.secrets.get("API_URL", "http://127.0.0.1:8000")
+    
     st.sidebar.header("Options")
 
     if st.sidebar.button("🏠 Main Page", use_container_width=True):
@@ -16,7 +18,7 @@ def history_page():
         
         # 2. Backend'e haber ver (Opsiyonel ama iyi olur)
         try:
-            requests.get("http://127.0.0.1:8000/auth/logout")
+            requests.get(f"{API_URL}/auth/logout")
             cookie_manager.delete("access_token")
         except:
             pass
@@ -35,7 +37,7 @@ def history_page():
     my_cookie = {"access_token":st.session_state.get("access_token","")}
 
     # şimdilik örnek statik kayıtlar:
-    response_get = requests.get("http://127.0.0.1:8000/picture/get-all", cookies=my_cookie)
+    response_get = requests.get(f"{API_URL}/picture/get-all", cookies=my_cookie)
 
     if response_get.status_code==200:
         history_list = response_get.json()
@@ -55,7 +57,7 @@ def history_page():
                         st.caption(f"Date: {item['date']}")
                         if st.button("Delete", key=f"delete_btn_{item['id']}"):
                             
-                            response_delete = requests.delete(f"http://127.0.0.1:8000/picture/delete/{item['id']}", cookies=my_cookie)
+                            response_delete = requests.delete(f"{API_URL}/picture/delete/{item['id']}", cookies=my_cookie)
                             if response_delete.status_code==200:
                                 st.success("Deleted successfully!")
                                 st.rerun()
