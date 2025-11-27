@@ -3,6 +3,8 @@ import extra_streamlit_components as stx
 import time
 
 def login_page():
+    API_URL = st.secrets.get("API_URL", "http://127.0.0.1:8000")
+    
     st.title("Login")
     
     # Cookie Manager
@@ -27,5 +29,5 @@ def login_page():
         return
 
     else:
-        st.link_button("Login with Google", "http://127.0.0.1:8000/auth/login", type="primary")
+        st.link_button("Login with Google", f"{API_URL}/auth/login", type="primary")
         st.info("Click to Login with Google.")
