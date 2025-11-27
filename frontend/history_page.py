@@ -4,7 +4,11 @@ import time
 import extra_streamlit_components as stx 
 
 def history_page():
+    # 1. API URL
     API_URL = st.secrets.get("API_URL", "http://127.0.0.1:8000")
+    
+    # 2. Cookie Manager
+    cookie_manager = stx.CookieManager(key="history_cookie_manager")
     
     st.sidebar.header("Options")
 
@@ -12,23 +16,19 @@ def history_page():
         st.session_state.page = "go_to_removed_background_page"
         st.rerun()
 
+    # --- LOGOUT BUTONU ---
     if st.sidebar.button("🚪 Logout", key="logout_btn_history2", use_container_width=True):
-        # 1. Cookie Manager Başlat
-        cookie_manager = stx.CookieManager(key="logout_cookie_manager")
         
-        # 2. Backend'e haber ver (Opsiyonel ama iyi olur)
-        try:
-            requests.get(f"{API_URL}/auth/logout")
-            cookie_manager.delete("access_token")
-        except:
-            pass
+        # Tarayıcıdan Cookie sil
+        cookie_manager.delete("access_token")
         
-        # 4. Session State Temizle
+        # Session ve URL temizle
         st.session_state.clear()
+        st.query_params.clear()
         st.session_state.page = "login"
         
-        # 5. Sayfayı Yenile
-        time.sleep(0.5) # Cookie silme işlemi için minik bekleme
+        # Yenile
+        time.sleep(0.5) 
         st.rerun()
 
     st.header("History")
