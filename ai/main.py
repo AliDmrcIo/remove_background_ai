@@ -7,13 +7,15 @@ from torchvision import transforms  # TorchVision kütüpünün transforms modü
 
 # modeli kur
 def load_model():
-    """
-    PyTorch Hub'dan, COCO veri seti üzerinde Semantic Segmentation için önceden eğitilmiş
-    DeepLabV3-ResNet101 modelini yükler. Hem encoder hem de decoder eğitilmiştir.
-    """
-
+    auth_header = os.environ.get("Authorization")
+    if auth_header:
+        del os.environ["Authorization"]
+    
     model = torch.hub.load("pytorch/vision:main", "deeplabv3_mobilenet_v3_large", pretrained=True, trust_repo=True) # pytorch/vision reposundan Hem encoder hem decoder işlemleri yapan DeepLabV3 için olan Resnet101 modelini kur
 
+    if auth_header:
+        os.environ["Authorization"] = auth_header
+    
     model.eval() # modeli değerlendirme modu olan evaluation moduna al
 
     return model
