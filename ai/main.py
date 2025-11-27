@@ -2,7 +2,8 @@ import torch                        # PyTorch Deep Learning kütüphanesidir
 import cv2                          # OpenCV Görüntü işleme kütühanesidir
 import numpy as np                  # Sayısal Python (Numerical Python): Sayısal işlemler yaparken kullanılır
 from PIL import Image               # Pillow (Python Imaging Library): Görüntüleri açma, döndürme, kırpma ve boyutlandırma
-from torchvision import transforms  # TorchVision kütüpünün transforms modülü: Data Augmentation, ToTensor, Normalizasyon 
+from torchvision import transforms  # TorchVision kütüpünün transforms modülü: Data Augmentation, ToTensor, Normalizasyon
+import os
 
 
 # modeli kur
