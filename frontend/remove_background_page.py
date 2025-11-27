@@ -37,7 +37,9 @@ def removed_background_page():
     # --- LOGOUT BUTONU ---
     if st.sidebar.button("🚪 Logout", key="logout_btn_home", use_container_width=True):
         try:
-            cookie_manager.delete("access_token")
+            cookie_manager. delete("access_token")
+            # Logout cookie'si ekle
+            cookie_manager.set("logged_out", "true", expires_at=datetime.now() + timedelta(seconds=5))
         except:
             pass
         
@@ -46,22 +48,15 @@ def removed_background_page():
         except:
             pass
         
-        # Session temizle
         st.session_state.clear()
-        st. query_params.clear()
         st.session_state.page = "login"
-        
-        # JavaScript ile zorla yönlendir
-        st.markdown(
-            """
-            <script>
-            window.parent.location.href = window.parent.location.href;
-            </script>
-            """,
-            unsafe_allow_html=True
-        )
-        
-        time.sleep(0.1)  # Kısa bir bekleme yeterli
+        st.rerun()
+    
+    # Ana sayfa kontrolünde (en üstte):
+    if cookie_manager.get("logged_out") == "true":
+        cookie_manager.delete("logged_out")
+        st.session_state.clear()
+        st.session_state.page = "login"
         st.rerun()
 
     st.title("Remove Background")
