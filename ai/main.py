@@ -12,7 +12,7 @@ def load_model():
     DeepLabV3-ResNet101 modelini yükler. Hem encoder hem de decoder eğitilmiştir.
     """
 
-    model = torch.hub.load("pytorch/vision:main", "deeplabv3_mobilenet_v3_large", pretrained=True) # pytorch/vision reposundan Hem encoder hem decoder işlemleri yapan DeepLabV3 için olan Resnet101 modelini kur
+    model = torch.hub.load("pytorch/vision:main", "deeplabv3_mobilenet_v3_large", pretrained=True, trust_repo=True) # pytorch/vision reposundan Hem encoder hem decoder işlemleri yapan DeepLabV3 için olan Resnet101 modelini kur
 
     model.eval() # modeli değerlendirme modu olan evaluation moduna al
 
