@@ -36,29 +36,32 @@ def removed_background_page():
 
     # --- LOGOUT BUTONU ---
     if st.sidebar.button("🚪 Logout", key="logout_btn_home", use_container_width=True):
-        
         try:
             cookie_manager.delete("access_token")
-        except KeyError:
-            # Kütüphane çerezi o an bulamazsa bile sorun etme, devam et.
-            pass 
-        except Exception as e:
-            print(f"Cookie silme hatası: {e}")
-
-        # 2. Backend'e Haber Ver (Formalite icabı)
-        try:
-            requests.get(f"{API_URL}/auth/logout")
         except:
             pass
-
-        # 3. ASIL ÇÖZÜM: Uygulama Hafızasını Nükleere Bağla
-        # Backend çerezi kalsa bile, session silindiği için kullanıcı login sayfasına düşer.
+        
+        try:
+            requests.get(f"{API_URL}/auth/logout", timeout=2)
+        except:
+            pass
+        
+        # Session temizle
         st.session_state.clear()
-        st.query_params.clear()
+        st. query_params.clear()
         st.session_state.page = "login"
         
-        # 4. Sayfayı Yenile
-        time.sleep(3) 
+        # JavaScript ile zorla yönlendir
+        st.markdown(
+            """
+            <script>
+            window.parent.location.href = window.parent.location.href;
+            </script>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        time.sleep(0.1)  # Kısa bir bekleme yeterli
         st.rerun()
 
     st.title("Remove Background")
