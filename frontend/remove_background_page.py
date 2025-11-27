@@ -10,6 +10,8 @@ from ai.main import remove_background, load_model
 
 
 def removed_background_page():
+    API_URL = st.secrets.get("API_URL", "http://127.0.0.1:8000")
+    
     current_dir = os.path.dirname(os.path.abspath(__file__)) # şuanki dosyanın yeri
     parent_dir = os.path.dirname(current_dir) # bir üst klasör (2_DEEPLABV3+.....)
     sys.path.append(parent_dir)               # python'a bu yolu ekle
@@ -33,7 +35,7 @@ def removed_background_page():
         
         # 2. Backend'e haber ver (Opsiyonel ama iyi olur)
         try:
-            requests.get("http://127.0.0.1:8000/auth/logout")
+            requests.get(f"{API_URL}/auth/logout")
             cookie_manager.delete("access_token")
         except:
             pass
@@ -77,7 +79,7 @@ def removed_background_page():
                     files_orig = {"original_picture": uploaded_file.getvalue()}
                     
                     # Backend'e istek atıyoruz (Resmi kaydet)
-                    res_orig = requests.post("http://127.0.0.1:8000/picture/post-original-picture", files=files_orig, cookies=my_cookies)
+                    res_orig = requests.post(f"{API_URL}/picture/post-original-picture", files=files_orig, cookies=my_cookies)
                     
                     if res_orig.status_code == 200:
                         picture_id = res_orig.json()['id'] # Backend'den gelen ID'yi kaptık!
@@ -96,7 +98,7 @@ def removed_background_page():
                         files_proc = {"processed_picture": buf_for_db.getvalue()}
                         
                         # ID'yi kullanarak veritabanındaki boş kısmı dolduruyoruz
-                        requests.put(f"http://127.0.0.1:8000/picture/post-processed-picture/{picture_id}", files=files_proc, cookies=my_cookies)
+                        requests.put(f"{API_URL}/picture/post-processed-picture/{picture_id}", files=files_proc, cookies=my_cookies)
                         
                         st.success("Your Picture is ready!")
                     
