@@ -18,29 +18,27 @@ def history_page():
 
     # --- LOGOUT BUTONU ---
     if st.sidebar.button("🚪 Logout", key="logout_btn_history2", use_container_width=True):
-        
         try:
-            cookie_manager.delete("access_token")
-        except KeyError:
-            # Kütüphane çerezi o an bulamazsa bile sorun etme, devam et.
-            pass 
-        except Exception as e:
-            print(f"Cookie silme hatası: {e}")
-
-        # 2. Backend'e Haber Ver (Formalite icabı)
-        try:
-            requests.get(f"{API_URL}/auth/logout")
+            cookie_manager. delete("access_token")
+            # Logout cookie'si ekle
+            cookie_manager.set("logged_out", "true", expires_at=datetime.now() + timedelta(seconds=5))
         except:
             pass
-
-        # 3. ASIL ÇÖZÜM: Uygulama Hafızasını Nükleere Bağla
-        # Backend çerezi kalsa bile, session silindiği için kullanıcı login sayfasına düşer.
-        st.session_state.clear()
-        st.query_params.clear()
-        st.session_state.page = "login"
         
-        # 4. Sayfayı Yenile
-        time.sleep(3) 
+        try:
+            requests.get(f"{API_URL}/auth/logout", timeout=2)
+        except:
+            pass
+        
+        st.session_state.clear()
+        st.session_state.page = "login"
+        st.rerun()
+    
+    # Ana sayfa kontrolünde (en üstte):
+    if cookie_manager.get("logged_out") == "true":
+        cookie_manager.delete("logged_out")
+        st.session_state.clear()
+        st.session_state.page = "login"
         st.rerun()
 
     st.header("History")
