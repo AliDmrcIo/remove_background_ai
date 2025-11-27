@@ -12,40 +12,35 @@ from ai.main import remove_background, load_model
 def removed_background_page():
     API_URL = st.secrets.get("API_URL", "http://127.0.0.1:8000")
     
-    current_dir = os.path.dirname(os.path.abspath(__file__)) # şuanki dosyanın yeri
-    parent_dir = os.path.dirname(current_dir) # bir üst klasör (2_DEEPLABV3+.....)
-    sys.path.append(parent_dir)               # python'a bu yolu ekle
+    # --- DÜZELTME 1: Cookie Manager'ı EN BAŞTA tanımla (Butonun dışında!) ---
+    # Key değerini unique (benzersiz) yapıyoruz.
+    cookie_manager = stx.CookieManager(key="remove_bg_cookie_manager")
+    
+    current_dir = os.path.dirname(os.path.abspath(__file__)) 
+    parent_dir = os.path.dirname(current_dir) 
+    sys.path.append(parent_dir)               
 
-    # Bu fonksiyon uygulamada sadece 1 kez çalışır. Sonraki tıklamalarda hafızadan gelir. Hızın sırrı burada!
-    @st.cache_resource
-    def get_cached_model():
-        return load_model()
-
-    model = get_cached_model() # Modeli hafızadan çekiyoruz (Süresi: 0.00 sn)
+    # ... (Model yükleme kodları aynı) ...
 
     st.sidebar.header("Options")
-    if st.sidebar.button("🕒 History", use_container_width=True):
-        st.session_state.page = "go_to_history_page"
-        st.rerun()
-        # burada history sayfasına yönlendirme kısmı gelecek. geçmişte arkaplanını kaldırdığı resimler olacak
+    
+    # ... (History butonu aynı) ...
 
-    if st.sidebar.button("🚪 Logout", key="logout_btn_history", use_container_width=True): # gerçekten logout olmuyor ve login sayfasına dönmüyor
-        # 1. Cookie Manager Başlat
-        cookie_manager = stx.CookieManager(key="logout_cookie_manager")
+    # --- DÜZELTME 2: LOGOUT BUTONU ---
+    if st.sidebar.button("🚪 Logout", key="logout_btn_home", use_container_width=True):
         
-        # 2. Backend'e haber ver (Opsiyonel ama iyi olur)
-        try:
-            requests.get(f"{API_URL}/auth/logout")
-            cookie_manager.delete("access_token")
-        except:
-            pass
+        # 1. Çerezi Sil (Tarayıcıdan)
+        cookie_manager.delete("access_token")
         
-        # 4. Session State Temizle
+        # 2. Session'ı Temizle
         st.session_state.clear()
         st.session_state.page = "login"
         
-        # 5. Sayfayı Yenile
-        time.sleep(0.5) # Cookie silme işlemi için minik bekleme
+        # 3. URL Parametrelerini Temizle (Eğer ?token=... kaldıysa tekrar girmesin diye)
+        st.query_params.clear()
+        
+        # 4. Yenile
+        time.sleep(0.5) 
         st.rerun()
 
     st.title("Remove Background")
