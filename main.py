@@ -1,4 +1,4 @@
-"""burada fastapi routerlarını toplayacağız bir de diğer main işlemleri"""
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, Depends
 from starlette.middleware.sessions import SessionMiddleware
 from db.database import engine, Base
@@ -11,6 +11,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Güvenlik için buraya ileride Streamlit URL'ini yazabilirsin, şimdilik "*" (herkes) kalsın.
+    allow_credentials=True,
+    allow_methods=["*"], # GET, POST, PUT, DELETE hepsine izin ver
+    allow_headers=["*"],
+)
 
 app.add_middleware(SessionMiddleware, secret_key=os.getenv("SECRET_KEY"))
 
