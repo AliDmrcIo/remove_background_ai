@@ -19,27 +19,15 @@ def history_page():
     # --- LOGOUT BUTONU ---
     if st.sidebar.button("🚪 Logout", key="logout_btn_history2", use_container_width=True):
         try:
-            cookie_manager. delete("access_token")
-            # Logout cookie'si ekle
-            cookie_manager.set("logged_out", "true", expires_at=datetime.now() + timedelta(seconds=5))
-        except:
-            pass
-        
-        try:
-            requests.get(f"{API_URL}/auth/logout", timeout=2)
+            requests.get(f"{API_URL}/auth/logout")
         except:
             pass
         
         st.session_state.clear()
+
         st.session_state.page = "login"
-        st.rerun()
-    
-    # Ana sayfa kontrolünde (en üstte):
-    if cookie_manager.get("logged_out") == "true":
-        cookie_manager.delete("logged_out")
-        st.session_state.clear()
-        st.session_state.page = "login"
-        st.rerun()
+        
+        st.logout()
 
     st.header("History")
     st.text("You can find your previos generations here!")
