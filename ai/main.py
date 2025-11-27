@@ -23,17 +23,17 @@ def load_model():
 
 # Remove Background : Data Preprocessing | Model Prediction | Masking 
 def remove_background(model, input_source):
-    """
-    Ana işlem akışını yönetir: Resmi açar, ön işler, modelden geçirir,
-    maskeyi oluşturur ve son şeffaf resmi üretir.
-    """
-
     # Streamlitten gelen img dosyası gelirse bazen okuma imleci sonda olabilir, başa alıyoruz.
     if hasattr(input_source, 'seek'):
         input_source.seek(0)
 
     # görüntüyü açar ve görüntüyü 3 kanallı RGB formatına getirir
     input_image = Image.open(input_source).convert("RGB")
+
+    # --- RESMİ KÜÇÜLTME ---
+    max_size = (1024, 1024)
+    if input_image.size[0] > max_size[0] or input_image.size[1] > max_size[1]:
+        input_image.thumbnail(max_size, Image.Resampling.LANCZOS)
 
     # Image Preprocessing (Resim Önişleme)
     preprocess = transforms.Compose([
