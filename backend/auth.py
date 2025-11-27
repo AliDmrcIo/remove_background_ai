@@ -109,14 +109,14 @@ async def auth_callback(request: Request, db:db_dependency):
     my_access_token = create_access_token(user_id=user.id, email = user.email, expires_delta=timedelta(minutes=60)) # Login SignIn esnasısnda burada token oluşturuluyor
 
     response = RedirectResponse(url=FRONTEND_URL) # google ile işimiz bittiğinde kullanıcıyı yönlendiriyoruz. Giriş işlemin bitti, hadi ana sayfaya
-    response.set_cookie( # tokeni cookie'ye kaydediyoruz ki tokeni kullancıya verelim, o da girişte kullanabilsin tokenini, vermeseydik tokeni kullanamaz, dolaysıyla siteye giremezdi
-        key="access_token",
-        value=f"Bearer {my_access_token}",
-        httponly=False,
-        max_age=1800,
-        samesite="lax",
-        secure=False # Canlıya alırken True yapmayı unutma
-    )
+    response.set_cookie(
+            key="access_token",
+            value=f"Bearer {my_access_token}",
+            httponly=False,  
+            max_age=1800,
+            samesite="None", 
+            secure=True      
+        )
     return response
 """
 Eğer Cookie'ye Kaydetmeseydim(response.set_cookie() yapmasaydım) Ne Olurdu?
