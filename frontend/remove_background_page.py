@@ -10,36 +10,42 @@ from ai.main import remove_background, load_model
 
 
 def removed_background_page():
+    # 1. API URL'yi al
     API_URL = st.secrets.get("API_URL", "http://127.0.0.1:8000")
     
-    # --- DÜZELTME 1: Cookie Manager'ı EN BAŞTA tanımla (Butonun dışında!) ---
-    # Key değerini unique (benzersiz) yapıyoruz.
+    # 2. Cookie Manager'ı EN BAŞTA tanımla
     cookie_manager = stx.CookieManager(key="remove_bg_cookie_manager")
     
+    # 3. Path Ayarları
     current_dir = os.path.dirname(os.path.abspath(__file__)) 
     parent_dir = os.path.dirname(current_dir) 
     sys.path.append(parent_dir)               
 
-    # ... (Model yükleme kodları aynı) ...
+    # 4. Model Cache
+    @st.cache_resource
+    def get_cached_model():
+        return load_model()
 
+    model = get_cached_model() 
+
+    # --- SIDEBAR ---
     st.sidebar.header("Options")
-    
-    # ... (History butonu aynı) ...
+    if st.sidebar.button("🕒 History", use_container_width=True):
+        st.session_state.page = "go_to_history_page"
+        st.rerun()
 
-    # --- DÜZELTME 2: LOGOUT BUTONU ---
+    # --- LOGOUT BUTONU ---
     if st.sidebar.button("🚪 Logout", key="logout_btn_home", use_container_width=True):
         
-        # 1. Çerezi Sil (Tarayıcıdan)
+        # Tarayıcıdan Cookie'yi sil
         cookie_manager.delete("access_token")
         
-        # 2. Session'ı Temizle
+        # Session State ve URL temizliği
         st.session_state.clear()
+        st.query_params.clear()
         st.session_state.page = "login"
         
-        # 3. URL Parametrelerini Temizle (Eğer ?token=... kaldıysa tekrar girmesin diye)
-        st.query_params.clear()
-        
-        # 4. Yenile
+        # Yenile
         time.sleep(0.5) 
         st.rerun()
 
