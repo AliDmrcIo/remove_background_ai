@@ -106,17 +106,23 @@ async def auth_callback(request: Request, db:db_dependency):
         db.refresh(user)
 
     # DB'ye yeni kaydedilen kullanıcı verileriyle 60dklık bir token oluştur
-    my_access_token = create_access_token(user_id=user.id, email = user.email, expires_delta=timedelta(minutes=60)) # Login SignIn esnasısnda burada token oluşturuluyor
+    my_access_token = create_access_token(user_id=user.id, email = user.email, expires_delta=timedelta(minutes=60))
 
-    response = RedirectResponse(url=FRONTEND_URL) # google ile işimiz bittiğinde kullanıcıyı yönlendiriyoruz. Giriş işlemin bitti, hadi ana sayfaya
+    # --- DEĞİŞİKLİK BURADA ---
+    # Token'ı URL'in sonuna ekliyoruz: ?token=...
+    redirect_target = f"{FRONTEND_URL}?token={my_access_token}"
+    
+    response = RedirectResponse(url=redirect_target)
+    
+    # Cookie yine de kalsın (Backend testleri için) ama ana yöntem artık URL olacak
     response.set_cookie(
-            key="access_token",
-            value=f"Bearer {my_access_token}",
-            httponly=False,  
-            max_age=1800,
-            samesite="None", 
-            secure=True      
-        )
+        key="access_token",
+        value=f"Bearer {my_access_token}",
+        httponly=False,
+        max_age=1800,
+        samesite="None",
+        secure=True
+    )
     return response
 """
 Eğer Cookie'ye Kaydetmeseydim(response.set_cookie() yapmasaydım) Ne Olurdu?
