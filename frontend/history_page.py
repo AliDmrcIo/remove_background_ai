@@ -40,7 +40,7 @@ def history_page():
         st.session_state.page = "login"
         
         # 4. Sayfayı Yenile
-        time.sleep(1) 
+        time.sleep(3) 
         st.rerun()
 
     st.header("History")
