@@ -5,7 +5,8 @@ import io
 from PIL import Image
 
 def history_detail_page():
-
+    API_URL = st.secrets.get("API_URL", "http://127.0.0.1:8000")
+    
     st.sidebar.header("Options")
     if st.sidebar.button("🏠 Main Page", use_container_width=True):
         st.session_state.page = "go_to_removed_background_page"
@@ -26,9 +27,9 @@ def history_detail_page():
 
     my_cookies = {"access_token":st.session_state.get('access_token','')}
 
-    get_req_original = requests.get(f"http://127.0.0.1:8000/picture/get-original-picture/{generation_id}", cookies=my_cookies)
+    get_req_original = requests.get(f"{API_URL}/picture/get-original-picture/{generation_id}", cookies=my_cookies)
 
-    get_req_processed = requests.get(f"http://127.0.0.1:8000/picture/get-processed-picture/{generation_id}", cookies=my_cookies)
+    get_req_processed = requests.get(f"{API_URL}/picture/get-processed-picture/{generation_id}", cookies=my_cookies)
 
     if get_req_original.status_code==200:
         with col1:
