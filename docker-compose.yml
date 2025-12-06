@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    container_name: background_remover_backend
+    # --proxy-headers: Docker'ın yönlendirdiği IP'leri doğru tanıması için gerekli
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --proxy-headers
+    volumes:
+      - ./users.db:/app/users.db
+    ports:
+      - "8000:8000"
+    restart: always
+    # Backend'in .env dosyasını okumasını sağlıyoruz:
+    env_file:
+      - .env
+
+  frontend:
+    build: .
+    container_name: background_remover_frontend
+    command: streamlit run app.py --server.port=8501 --server.address=0.0.0.0
+    volumes:
+      - .:/app
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    env_file:  # Frontend'e de ekleyelim
+      - .env
+    environment:
+      - BACKEND_URL=http://backend:8000
