@@ -1,4 +1,4 @@
-"# 🖼️ Project 2: AI Background Remover (End-to-End Full Stack MLOps Project)
+# AI Background Remover (End-to-End Full Stack MLOps Project)
 
 🔗 **Live on:** [http://removedbackground.duckdns.org](http://removedbackground.duckdns.org)
 This is the live production version of the project. You can directly upload your images and test the AI-based background removal system from this link.
@@ -34,14 +34,14 @@ The main goal of this project is to build a **robust, scalable, and secure AI ap
 
 ## 🛠️ Technologies Used
 
-### 🧠 AI & Computer Vision
+### AI & Computer Vision
 
 * **Task:** Semantic Segmentation (Foreground–Background Separation)
 * **Model Architecture:** `DeepLabV3+` (Latest generation segmentation architecture)
 * **Backbone:** `MobileNetV3-Large` (Optimized for lightweight and CPU-based inference)
 * **Frameworks & Libraries:** `PyTorch`, `Torchvision`, `Albumentations`, `OpenCV`
 
-### 🔙 Backend (API & Business Logic)
+### Backend (API & Business Logic)
 
 * **Framework:** `FastAPI`
 * **Authentication:** `Google OAuth 2.0`
@@ -50,12 +50,12 @@ The main goal of this project is to build a **robust, scalable, and secure AI ap
 * **Database:** `SQLite`
 * **ORM:** `SQLAlchemy`
 
-### 🖥️ Frontend (User Interface)
+### Frontend (User Interface)
 
 * **Framework:** `Streamlit`
 * **State & Cookie Management:** `extra-streamlit-components`
 
-### ☁️ DevOps, Container & Cloud
+### DevOps, Container & Cloud
 
 * **Containerization:** `Docker`, `Docker Compose`
 * **Cloud Provider:** `AWS EC2` (Ubuntu)
@@ -234,5 +234,3 @@ It is a **complete full-stack, cloud-deployed, authenticated, AI-powered MLOps s
 * Containerization
 * Cloud Networking
 * Real-world deployment patterns
-
-This setup directly reflects how modern AI systems are built and served in real industry environments."
