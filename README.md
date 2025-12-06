@@ -3,6 +3,16 @@
 🔗 **Live on:** [http://removedbackground.duckdns.org](http://removedbackground.duckdns.org)
 This is the live production version of the project. You can directly upload your images and test the AI-based background removal system from this link.
 
+
+<img width="300" height="129" alt="1" src="https://github.com/user-attachments/assets/924b5d2b-dc77-47e9-a1c6-fe55080c4078" />
+<img width="300" height="129" alt="2" src="https://github.com/user-attachments/assets/27afd7bb-0892-4267-812e-d20f3503d375" />
+<img width="300" height="130" alt="3" src="https://github.com/user-attachments/assets/4475210e-0f49-405c-81c4-42fe61e1cecb" />
+<img width="300" height="129" alt="4" src="https://github.com/user-attachments/assets/3f949a6a-156b-4903-9973-8e60ab80bc89" />
+<img width="300" height="129" alt="5" src="https://github.com/user-attachments/assets/f01570e0-332a-4af8-9633-f8044d181918" />
+<img width="300" height="128" alt="6" src="https://github.com/user-attachments/assets/487fadad-2fdc-482f-b37d-2d0afa960d0e" />
+
+
+
 ---
 
 ## Project Description
