@@ -70,15 +70,20 @@ The main goal of this project is to build a **robust, scalable, and secure AI ap
 * **Authentication Flow:** Google Login + Token-Based Access Control
 
 ## Libraries Used
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
+![Torchvision](https://img.shields.io/badge/Torchvision-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
+![OpenCV](https://img.shields.io/badge/opencv-%23white.svg?style=for-the-badge&logo=opencv&logoColor=black)
+![Albumentations](https://img.shields.io/badge/Albumentations-%2300CC00.svg?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)
-![OpenCV](https://img.shields.io/badge/opencv-%23white.svg?style=for-the-badge&logo=opencv&logoColor=white)
-![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Extra Streamlit Components](https://img.shields.io/badge/Extra_Streamlit_Components-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)
 ![SQLAlchemy](https://img.shields.io/badge/SqlAlchemy-%23D71F00.svg?style=for-the-badge&logo=sqlalchemy&logoColor=white)
-![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![Pydantic](https://img.shields.io/badge/Pydantic-%23e92063.svg?style=for-the-badge&logo=pydantic&logoColor=white)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+![Pillow](https://img.shields.io/badge/Pillow-%233776AB.svg?style=for-the-badge&logo=python&logoColor=white)
+![Authlib](https://img.shields.io/badge/Authlib-%232D3748.svg?style=for-the-badge&logo=openid&logoColor=white)
+![Python-Jose](https://img.shields.io/badge/Python--Jose-black?style=for-the-badge&logo=json-web-tokens&logoColor=white)
+![Python-Dotenv](https://img.shields.io/badge/Python--Dotenv-%23ecd53f.svg?style=for-the-badge&logo=python&logoColor=black)
 ---
 
 ## 📂 Project Structure
