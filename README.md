@@ -1,6 +1,6 @@
 # AI Background Remover (End-to-End Full Stack MLOps Project)
 
-🔗 **Live on:** [http://removedbackground.duckdns.org](http://removedbackground.duckdns.org)
+🔗 **Live on:** [https://removedbackground.duckdns.org](https://removedbackground.duckdns.org)
 This is the live production version of the project. You can directly upload your images and test the AI-based background removal system from this link.
 
 
